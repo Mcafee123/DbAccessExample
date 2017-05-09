@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Dossier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\DossierRepo.cs" />
+    <Compile Include="Repos\IDossierRepo.cs" />
+    <Compile Include="Repos\Repo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RepositoryExample.Dapper\RepositoryExample.Dapper.csproj">
+      <Project>{3870A59F-5F1E-4A5E-9778-D14DCF268ECF}</Project>
+      <Name>RepositoryExample.Dapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
