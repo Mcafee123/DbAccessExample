@@ -1,6 +1,9 @@
-﻿namespace RepositoryExample.Dapper.Services
+﻿using RepositoryExample.Dapper.Dto;
+
+namespace RepositoryExample.Dapper.Services
 {
     public interface IDossierService
     {
+        DossierDto LoadDossier(int id);
     }
 }

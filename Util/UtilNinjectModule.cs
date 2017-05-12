@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using Ninject.Extensions.Factory;
+using Ninject.Modules;
 using Util.Interfaces;
 
 namespace Util
@@ -8,6 +9,8 @@ namespace Util
         public override void Load()
         {
             Bind<IConfigReader>().To<ConfigReader>();
+            Bind<ISessionFactory>().ToFactory();
+            Bind<ISqlSession>().To<SqlSession>();
         }
     }
 }

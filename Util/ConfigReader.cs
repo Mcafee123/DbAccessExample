@@ -7,7 +7,7 @@ namespace Util
     {
         public string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["eLog2"].ConnectionString;
+            return ConfigurationManager.ConnectionStrings["DbAccessExample"].ConnectionString;
         }
     }
 }

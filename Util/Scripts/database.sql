@@ -139,4 +139,6 @@ GO
 ALTER DATABASE [DbAccessExample] SET  READ_WRITE 
 GO
 
-
+CREATE LOGIN DbAccessExample WITH PASSWORD = 'DbAccessExample'
+CREATE USER DbAccessExample FROM LOGIN DbAccessExample
+EXEC sp_addrolemember N'db_owner', N'DbAccessExample'

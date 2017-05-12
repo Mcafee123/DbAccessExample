@@ -1,6 +1,8 @@
-﻿namespace RepositoryExample.Daten.Domain
+﻿using RepositoryExample.Daten.Interfaces.Domain;
+
+namespace RepositoryExample.Daten.Domain
 {
-    public class Dossier
+    public class Dossier : IDossier
     {
     }
 }

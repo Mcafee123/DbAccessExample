@@ -2,6 +2,7 @@
 using RepositoryExample.Dapper;
 using RepositoryExample.Daten;
 using RepositoryExample.Kern;
+using RepositoryExample.Kern.Interfaces;
 using Util;
 
 namespace DbAccessExample
@@ -14,6 +15,11 @@ namespace DbAccessExample
             Kernel.Load(new RepositoryDapperNinjectModule());
             Kernel.Load(new RepositoryDatenNinjectModule());
             Kernel.Load(new RepositoryKernNinjectModule());
+        }
+
+        public IDossierEditor GetDossierEditor()
+        {
+            return Kernel.Get<IDossierEditor>();
         }
     }
 }
