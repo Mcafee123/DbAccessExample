@@ -614,7 +614,7 @@ class SqlServerSchemaReader : SchemaReader
 
 			var p = cmd.CreateParameter();
 			p.ParameterName = "@tableName";
-			p.Value=tbl.Name;
+			p.Value=tbl.Schema + "." + tbl.Name;
 			cmd.Parameters.Add(p);
 
 			var result=new List<Key>();
@@ -645,7 +645,7 @@ class SqlServerSchemaReader : SchemaReader
 
 			var p = cmd.CreateParameter();
 			p.ParameterName = "@tableName";
-			p.Value=tbl.Name;
+			p.Value=tbl.Schema + "." + tbl.Name;
 			cmd.Parameters.Add(p);
 
 			var result=new List<Key>();
