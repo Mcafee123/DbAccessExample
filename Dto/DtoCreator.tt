@@ -631,13 +631,7 @@ class SqlServerSchemaReader : SchemaReader
 					result.Add(key);
 				}
 			}
-             foreach (var key in result)
-            {
-                if (result.Where(k => k.ReferencedTableName == key.ReferencedTableName).Count() > 1)
-                {
-                    key.PropertyName = key.Name;
-                }
-            }
+            FixPropertyNames(result);
 			return result;
 		}
 	}
@@ -668,16 +662,20 @@ class SqlServerSchemaReader : SchemaReader
 					result.Add(key);
 				}
 			}
-            foreach (var key in result)
-            {
-                if (result.Where(k => k.ReferencingTableName == key.ReferencingTableName).Count() > 1)
-                {
-                    key.PropertyName = key.Name;
-                }
-            }
+            FixPropertyNames(result);
 			return result;
 		}
 	}
+
+    private void FixPropertyNames(List<Key> result) {
+        foreach (var key in result)
+        {
+            if (result.Where(k => k.PropertyName == key.PropertyName).Count() > 1)
+            {
+                key.PropertyName = key.Name;
+            }
+        }
+    }
 
 	string[] GetPK(string table){
 		

@@ -12,7 +12,7 @@ namespace RepositoryExample.Dapper.Services
             _sessionFactory = sessionFactory;
         }
 
-        public DossierDto LoadDossier(int id)
+        public CockpitSB_Dossier LoadDossier(int id)
         {
             using (var sqlSession = _sessionFactory.CreateSqlSession())
             {
