@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0116265-1AEC-4243-8C49-79FD8C30B7FF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepositoryExample.Kern</RootNamespace>
-    <AssemblyName>RepositoryExample.Kern</AssemblyName>
+    <ProjectGuid>{D0B2F9D3-A2F1-43BC-B14E-A59BB989CDF5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CommandQueryExample.Cmd</RootNamespace>
+    <AssemblyName>CommandQueryExample.Cmd</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,19 +45,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DossierEditor.cs" />
-    <Compile Include="Interfaces\IDossierEditor.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryKernNinjectModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RepositoryExample.Daten\RepositoryExample.Daten.csproj">
-      <Project>{BFE97F37-EBDC-4312-89E6-66222F10DCB3}</Project>
-      <Name>RepositoryExample.Daten</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommandQueryExample.Daten\CommandQueryExample.Daten.csproj">
+      <Project>{BF520365-A31C-4B57-87E6-835BE5D91F40}</Project>
+      <Name>CommandQueryExample.Daten</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommandQueryExample.Kern\CommandQueryExample.Kern.csproj">
+      <Project>{9593BA89-A8D8-40F3-A2CE-355EF8CBBAAC}</Project>
+      <Name>CommandQueryExample.Kern</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

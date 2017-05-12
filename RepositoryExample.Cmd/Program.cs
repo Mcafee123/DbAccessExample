@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace RepositoryExample
+namespace DbAccessExample
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World");
             Console.ReadKey();
         }
     }

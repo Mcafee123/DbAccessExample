@@ -1,11 +1,11 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using RepositoryExample.Daten.Domain;
 using RepositoryExample.Daten.Repos;
+using RepositoryExample.Kern.Interfaces;
 
-namespace RepositoryExample.Kern.Managers
+namespace RepositoryExample.Kern
 {
-    public class DossierEditor
+    public class DossierEditor : IDossierEditor
     {
         private readonly IDossierRepo<Dossier> _dossierRepo;
 

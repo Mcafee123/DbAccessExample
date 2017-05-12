@@ -2,7 +2,7 @@
 
 namespace RepositoryExample.Daten.Repos
 {
-    public interface IDossierRepo<Dossier>: IRepo<Dossier>
+    public interface IDossierRepo<Dossier> : IRepo<Dossier>
     {
         IEnumerable<Dossier> Search(string searchTerm);
     }
