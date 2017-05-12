@@ -633,13 +633,9 @@ class SqlServerSchemaReader : SchemaReader
 			}
              foreach (var key in result)
             {
-                var sameReferencedTableName = result.Where(k => k.ReferencedTableName == key.ReferencedTableName).ToList();
-                if (sameReferencedTableName.Count > 1)
+                if (result.Where(k => k.ReferencedTableName == key.ReferencedTableName).Count() > 1)
                 {
-                    foreach (var k in sameReferencedTableName)
-                    {
-                        k.PropertyName = k.Name;
-                    }
+                    key.PropertyName = key.Name;
                 }
             }
 			return result;
@@ -674,13 +670,9 @@ class SqlServerSchemaReader : SchemaReader
 			}
             foreach (var key in result)
             {
-                var sameReferencingTableName = result.Where(k => k.ReferencingTableName == key.ReferencingTableName).ToList();
-                if (sameReferencingTableName.Count > 1)
+                if (result.Where(k => k.ReferencingTableName == key.ReferencingTableName).Count() > 1)
                 {
-                    foreach (var k in sameReferencingTableName)
-                    {
-                        k.PropertyName = k.Name;
-                    }
+                    key.PropertyName = key.Name;
                 }
             }
 			return result;
