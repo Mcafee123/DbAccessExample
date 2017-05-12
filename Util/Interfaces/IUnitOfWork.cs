@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Util.Interfaces
 {
-    internal interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         Guid Id { get; }
         IDbConnection Connection { get; }

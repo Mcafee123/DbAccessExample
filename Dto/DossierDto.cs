@@ -1,4 +1,4 @@
-﻿namespace CommandQueryExample.Daten.Dto
+﻿namespace Dto
 {
     public class DossierDto
     {

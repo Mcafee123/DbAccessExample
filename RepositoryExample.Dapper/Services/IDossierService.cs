@@ -1,4 +1,4 @@
-﻿using RepositoryExample.Dapper.Dto;
+﻿using Dto;
 
 namespace RepositoryExample.Dapper.Services
 {

@@ -1,4 +1,4 @@
-﻿using CommandQueryExample.Daten.Dto;
+﻿using Dto;
 
 namespace CommandQueryExample.Daten.Interfaces.Queries
 {

@@ -15,7 +15,7 @@ namespace Util
             UnitOfWork = new UnitOfWork(_connection);
         }
 
-        public UnitOfWork UnitOfWork { get; }
+        public IUnitOfWork UnitOfWork { get; }
 
         public void Dispose()
         {

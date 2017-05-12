@@ -46,7 +46,6 @@
     <Compile Include="CmdQueryDatenNinjectModule.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\IQuery.cs" />
-    <Compile Include="Dto\DossierDto.cs" />
     <Compile Include="Interfaces\Queries\ILoadDossierQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +58,10 @@
     <Folder Include="Queries\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dto\Dto.csproj">
+      <Project>{815FE21B-7891-4BD9-BE4A-D628A177FDF4}</Project>
+      <Name>Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{2b9a284d-cb6f-4d7f-8475-cfbd743a5194}</Project>
       <Name>Util</Name>

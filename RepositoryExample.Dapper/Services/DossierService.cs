@@ -1,4 +1,4 @@
-﻿using RepositoryExample.Dapper.Dto;
+﻿using Dto;
 using Util.Interfaces;
 
 namespace RepositoryExample.Dapper.Services
@@ -20,6 +20,18 @@ namespace RepositoryExample.Dapper.Services
                 unitOfWork.Begin();
                 try
                 {
+                    //var sql =
+                    //    @"
+                    //    select * from Customers where CustomerId = @id
+                    //    select * from Orders where CustomerId = @id
+                    //    select * from Returns where CustomerId = @id";
+
+                    //using (var multi = unitOfWork.Connection.QueryMultiple(sql, new {id = selectedId}))
+                    //{
+                    //    var customer = multi.Read<Customer>().Single();
+                    //    var orders = multi.Read<Order>().ToList();
+                    //    var returns = multi.Read<Return>().ToList();
+                    //}
                     //Your database code here
                     unitOfWork.Commit();
                 }
