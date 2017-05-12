@@ -1,4 +1,4 @@
-﻿<#@ template hostspecific="True" #>
+﻿<#@ template hostspecific="True" language="C#" debug="true" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core.dll" #>
 <#@ assembly name="System.Data" #>
@@ -18,6 +18,7 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Configuration" #>
 <#@ import namespace="System.Windows.Forms" #>
+<#@ import namespace="System.Diagnostics" #>
 <#
 /*
 This code is part of the Dapper.SimpleCRUD project
@@ -31,7 +32,7 @@ It is based on the T4 template from the PetaPoco project which in turn is based 
 	// Settings
     ConnectionStringName = "DbAccessExample"; // Uses last connection string in config if not specified
 	ConfigPath = @"C:\Source\DbAccessExamples\DbAccessExample.Cmd\App.config"; //Looks in current project for web.config or app.config by default. This overrides to a relative path - useful for seperate class library projects.
-    Namespace = "DbAccessExample.Dto";
+    Namespace = "Dto";
 	ClassPrefix = "";
 	ClassSuffix = "";
     IncludeViews = true;
@@ -54,34 +55,36 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+// ReSharper disable InconsistentNaming
 
 namespace <#=Namespace #>
 {
 <#
 foreach(Table tbl in from t in tables where !t.Ignore select t){
-		if(IsExcluded(tbl.Name, ExcludeTablePrefixes)) continue;
+		if(IsExcluded(tbl.FullName, ExcludeTablePrefixes)) continue;
 #>
     /// <summary>
     /// A class which represents the <#=tbl.Name#> <#=(tbl.IsView)?"view":"table"#>.
     /// </summary>
-	[Table("<#=tbl.Name#>")]
-	public partial class <#=tbl.ClassName#>
+	[Table("<#=tbl.Schema#>.<#=tbl.Name#>")]
+	public class <#=tbl.FullName#>
 	{
 <#foreach(Column col in from c in tbl.Columns where !c.Ignore select c)
 {#>
 	<# if (tbl.IsPrimaryKeyColumn(col.PropertyName)) { #>
 	[Key]
 	<#}#>
-	public virtual <#=col.PropertyType #><#=CheckNullable(col)#> <#=col.PropertyName #> { get; set; }
+	public <#=col.PropertyType #><#=CheckNullable(col)#> <#=col.PropertyName #> { get; set; }
 <#}#>
 <# if (IncludeRelationships) { #>
 <#foreach(Key key in from k in tbl.OuterKeys select k)
 {#>
-		public virtual <#=tables[key.ReferencedTableName].ClassName #> <# if (tables[key.ReferencedTableName].ClassName==tbl.ClassName) { #>FK_<#}#><#=tables[key.ReferencedTableName].ClassName #> { get; set; }
+		public <#=tables[key.ReferencedTableName].FullName #> <# if (tables[key.ReferencedTableName].ClassName==tbl.ClassName) { #>FK_<#}#><#=key.Name.Replace("_", "") #> { get; set; }
 <#}#>
 <#foreach(Key key in from k in tbl.InnerKeys select k)
 {#>
-		public virtual IEnumerable<<#=tables[key.ReferencingTableName].ClassName #>> <#=tables[key.ReferencingTableName].CleanName #> { get; set; }
+        // <#=key.Name #>
+		public IEnumerable<<#=tables[key.ReferencingTableName].FullName #>> <#=key.Name.Replace("_", "") #> { get; set; }
 <#}#>
 <#}#>
 	}
@@ -117,6 +120,7 @@ public class Table
 	public List<Key> InnerKeys = new List<Key>();
     public List<Key> OuterKeys = new List<Key>(); 
     public string Name;
+    public string FullName;
 	public string Schema;
 	public bool IsView;
     public string CleanName;
@@ -170,16 +174,20 @@ public class Tables : List<Table>
 	{
 	}
 	
-	public Table GetTable(string tableName)
+	public Table GetTable(string fullTableName)
 	{
-		return this.Single(x=>string.Compare(x.Name, tableName, true)==0);
+        var tbl = this.SingleOrDefault(x=>string.Compare(x.FullName, fullTableName, true)==0);
+        if (tbl == null) {
+            throw new System.Collections.Generic.KeyNotFoundException("could not find " + fullTableName);
+        }
+		return tbl;
 	}
 
-	public Table this[string tableName]
+	public Table this[string fullTableName]
 	{
 		get
 		{
-			return GetTable(tableName);
+			return GetTable(fullTableName);
 		}
 	}
 
@@ -505,7 +513,8 @@ class SqlServerSchemaReader : SchemaReader
 				while(rdr.Read())
 				{
 					Table tbl=new Table();
-					tbl.Name=rdr["TABLE_SCHEMA"].ToString()+"_"+rdr["TABLE_NAME"].ToString();
+                    tbl.FullName=rdr["TABLE_SCHEMA"].ToString()+"_"+rdr["TABLE_NAME"].ToString();
+					tbl.Name=rdr["TABLE_NAME"].ToString();
 					tbl.Schema=rdr["TABLE_SCHEMA"].ToString();
 					tbl.IsView=string.Compare(rdr["TABLE_TYPE"].ToString(), "View", true)==0;
 					tbl.CleanName=CleanUp(tbl.Name);
@@ -615,7 +624,7 @@ class SqlServerSchemaReader : SchemaReader
 				{
 					var key=new Key();
 					key.Name=rdr["FK"].ToString();
-				    key.ReferencedTableName = rdr["Referenced_tbl"].ToString();
+				    key.ReferencedTableName = rdr["Referenced_schema"] + "_" + rdr["Referenced_tbl"];
 				    key.ReferencedTableColumnName = rdr["Referenced_col"].ToString();
 				    key.ReferencingTableColumnName = rdr["Referencing_col"].ToString();
 					result.Add(key);
@@ -645,7 +654,7 @@ class SqlServerSchemaReader : SchemaReader
 				{
 					var key=new Key();
 					key.Name=rdr["FK"].ToString();
-				    key.ReferencingTableName = rdr["Referencing_tbl"].ToString();
+				    key.ReferencingTableName = rdr["Schema"] + "_" + rdr["Referencing_tbl"];
 				    key.ReferencedTableColumnName = rdr["Referenced_col"].ToString();
 				    key.ReferencingTableColumnName = rdr["Referencing_col"].ToString();
 					result.Add(key);
@@ -774,6 +783,7 @@ class SqlServerSchemaReader : SchemaReader
 
 	const string OUTER_KEYS_SQL = @"SELECT 
 			FK = OBJECT_NAME(pt.constraint_object_id),
+            Referenced_schema = OBJECT_SCHEMA_NAME(pt.referenced_object_id),
 			Referenced_tbl = OBJECT_NAME(pt.referenced_object_id),
 			Referencing_col = pc.name, 
 			Referenced_col = rc.name

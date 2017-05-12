@@ -64,6 +64,10 @@
       <Project>{9593ba89-a8d8-40f3-a2ce-355ef8cbbaac}</Project>
       <Name>CommandQueryExample.Kern</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dto\Dto.csproj">
+      <Project>{815FE21B-7891-4BD9-BE4A-D628A177FDF4}</Project>
+      <Name>Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepositoryExample.Dapper\RepositoryExample.Dapper.csproj">
       <Project>{3870A59F-5F1E-4A5E-9778-D14DCF268ECF}</Project>
       <Name>RepositoryExample.Dapper</Name>
