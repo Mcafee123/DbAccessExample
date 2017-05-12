@@ -1,6 +1,6 @@
 ﻿using Dto;
 
-namespace RepositoryExample.Dapper.Services
+namespace RepositoryExample.Daten.Services
 {
     public interface IDossierService
     {

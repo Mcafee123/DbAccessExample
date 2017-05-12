@@ -1,7 +1,7 @@
 ﻿using Dto;
 using Util.Interfaces;
 
-namespace RepositoryExample.Dapper.Services
+namespace RepositoryExample.Daten.Services
 {
     public class DossierService : IDossierService
     {

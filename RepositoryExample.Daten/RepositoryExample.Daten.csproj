@@ -58,22 +58,22 @@
     <Compile Include="Repos\IDossierRepo.cs" />
     <Compile Include="Repos\IRepo.cs" />
     <Compile Include="Repos\Repo.cs" />
+    <Compile Include="Services\DossierService.cs" />
+    <Compile Include="Services\IDossierService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dto\Dto.csproj">
       <Project>{815FE21B-7891-4BD9-BE4A-D628A177FDF4}</Project>
       <Name>Dto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepositoryExample.Dapper\RepositoryExample.Dapper.csproj">
-      <Project>{3870A59F-5F1E-4A5E-9778-D14DCF268ECF}</Project>
-      <Name>RepositoryExample.Dapper</Name>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{2B9A284D-CB6F-4D7F-8475-CFBD743A5194}</Project>
+      <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

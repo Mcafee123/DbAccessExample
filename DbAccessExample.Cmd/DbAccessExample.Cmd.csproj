@@ -68,10 +68,6 @@
       <Project>{815FE21B-7891-4BD9-BE4A-D628A177FDF4}</Project>
       <Name>Dto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepositoryExample.Dapper\RepositoryExample.Dapper.csproj">
-      <Project>{3870A59F-5F1E-4A5E-9778-D14DCF268ECF}</Project>
-      <Name>RepositoryExample.Dapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RepositoryExample.Daten\RepositoryExample.Daten.csproj">
       <Project>{BFE97F37-EBDC-4312-89E6-66222F10DCB3}</Project>
       <Name>RepositoryExample.Daten</Name>

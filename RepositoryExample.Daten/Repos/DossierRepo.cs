@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using RepositoryExample.Dapper.Services;
 using RepositoryExample.Daten.Domain;
 using RepositoryExample.Daten.Interfaces;
+using RepositoryExample.Daten.Services;
 
 namespace RepositoryExample.Daten.Repos
 {
