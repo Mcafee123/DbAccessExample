@@ -1,4 +1,4 @@
-﻿<#@ template hostspecific="True" language="C#" debug="true" #>
+﻿<#@ template hostspecific="True" language="C#" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core.dll" #>
 <#@ assembly name="System.Data" #>
@@ -18,7 +18,6 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Configuration" #>
 <#@ import namespace="System.Windows.Forms" #>
-<#@ import namespace="System.Diagnostics" #>
 <#
 /*
 This code is part of the Dapper.SimpleCRUD project
