@@ -1,38 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.RepositoryExample;
+using Dto;
 
 namespace RepositoryExample.Daten.Repos
 {
-    public abstract class Repo<T>: IRepo<T>
+    public class DossierAblageortRepo : IDossierAblageortRepo
     {
-        public virtual void Add(T item)
+        public void Add(DossierAblageort item)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Remove(T item)
+        public void Remove(DossierAblageort item)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Update(T item)
+        public void Update(DossierAblageort item)
         {
             throw new NotImplementedException();
         }
 
-        public virtual T FindById(int id)
+        public DossierAblageort FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public IEnumerable<DossierAblageort> Find(Expression<Func<DossierAblageort, bool>> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<T> FindAll()
+        public IEnumerable<DossierAblageort> FindAll()
         {
             throw new NotImplementedException();
         }

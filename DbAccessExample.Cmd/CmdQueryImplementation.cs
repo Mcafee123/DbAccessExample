@@ -1,5 +1,4 @@
 ﻿using CommandQueryExample.Daten;
-using CommandQueryExample.Kern;
 using Ninject;
 using Util;
 
@@ -11,7 +10,6 @@ namespace DbAccessExample
         {
             Kernel.Load(new UtilNinjectModule());
             Kernel.Load(new CmdQueryDatenNinjectModule());
-            Kernel.Load(new CmdQueryKernNinjectModule());
         }
     }
 }

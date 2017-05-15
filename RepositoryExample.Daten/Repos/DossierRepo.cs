@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using RepositoryExample.Daten.Domain;
-using RepositoryExample.Daten.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using DbAccessExample.Kern.Domain;
+using DbAccessExample.Kern.Interfaces;
+using DbAccessExample.Kern.RepositoryExample;
 using RepositoryExample.Daten.Services;
 
 namespace RepositoryExample.Daten.Repos
 {
-    public class DossierRepo : IDossierRepo<Dossier>
+    public class DossierRepo : IDossierRepo
     {
         private readonly IDossierFactory _dossierFactory;
         private readonly IDossierService _dossierService;
@@ -21,10 +24,35 @@ namespace RepositoryExample.Daten.Repos
             return new List<Dossier>();
         }
 
-        public Dossier LoadDossier(int id)
+        public void Add(Dossier item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Dossier item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Dossier item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dossier FindById(int id)
         {
             var dto = _dossierService.LoadDossier(id);
             return _dossierFactory.CreateDossier();
+        }
+
+        public IEnumerable<Dossier> Find(Expression<Func<Dossier, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Dossier> FindAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

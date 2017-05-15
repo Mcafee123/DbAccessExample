@@ -1,8 +1,9 @@
-﻿using Ninject.Extensions.Factory;
+﻿using DbAccessExample.Kern.Interfaces;
+using DbAccessExample.Kern.RepositoryExample;
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
-using RepositoryExample.Daten.Domain;
-using RepositoryExample.Daten.Interfaces;
 using RepositoryExample.Daten.Repos;
+using RepositoryExample.Daten.Services;
 
 namespace RepositoryExample.Daten
 {
@@ -10,7 +11,8 @@ namespace RepositoryExample.Daten
     {
         public override void Load()
         {
-            Bind<IDossierRepo<Dossier>>().To<DossierRepo>();
+            Bind<IDossierRepo>().To<DossierRepo>();
+            Bind<IDossierService>().To<DossierService>();
             Bind<IDossierFactory>().ToFactory();
         }
     }

@@ -1,4 +1,6 @@
-﻿using Dto;
+﻿using System.Linq;
+using Dapper;
+using Dto;
 using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Services
@@ -12,7 +14,7 @@ namespace RepositoryExample.Daten.Services
             _sessionFactory = sessionFactory;
         }
 
-        public CockpitSB_Dossier LoadDossier(int id)
+        public CockpitSB_Dossier LoadDossier(int dossierId)
         {
             using (var sqlSession = _sessionFactory.CreateSqlSession())
             {
@@ -22,17 +24,16 @@ namespace RepositoryExample.Daten.Services
                 {
                     //var sql =
                     //    @"
-                    //    select * from Customers where CustomerId = @id
-                    //    select * from Orders where CustomerId = @id
-                    //    select * from Returns where CustomerId = @id";
+                    //    select top(1) * from CockpitSB.Dossier where Id = @id
+                    //    select * from CockpitSB.DossierVerlauf where DossierId = @id";
 
-                    //using (var multi = unitOfWork.Connection.QueryMultiple(sql, new {id = selectedId}))
-                    //{
-                    //    var customer = multi.Read<Customer>().Single();
-                    //    var orders = multi.Read<Order>().ToList();
-                    //    var returns = multi.Read<Return>().ToList();
-                    //}
-                    //Your database code here
+                    //var multi = unitOfWork.Connection.QueryMultiple(sql, new {id = dossierId}, unitOfWork.Transaction);
+                    //var dossier = multi.Read<CockpitSB_Dossier>().Single();
+                    //var orders = multi.Read<CockpitSB_DossierVerlauf>().ToList();
+                    var dossier = unitOfWork.Connection.Query<CockpitSB_Dossier>("select * from CockpitSB.Dossier", null, unitOfWork.Transaction).SingleOrDefault();
+
+
+
                     unitOfWork.Commit();
                 }
                 catch

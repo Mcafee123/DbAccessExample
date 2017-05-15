@@ -1,6 +1,6 @@
-﻿using RepositoryExample.Daten.Domain;
+﻿using DbAccessExample.Kern.Domain;
 
-namespace RepositoryExample.Daten.Interfaces
+namespace DbAccessExample.Kern.Interfaces
 {
     public interface IDossierFactory
     {

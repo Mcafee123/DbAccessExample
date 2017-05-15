@@ -1,23 +1,23 @@
 using System.Collections.Generic;
-using RepositoryExample.Daten.Domain;
-using RepositoryExample.Daten.Interfaces.Domain;
-using RepositoryExample.Daten.Repos;
-using RepositoryExample.Kern.Interfaces;
+using DbAccessExample.Kern.Domain;
+using DbAccessExample.Kern.Interfaces;
+using DbAccessExample.Kern.Interfaces.Domain;
+using DbAccessExample.Kern.RepositoryExample;
 
-namespace RepositoryExample.Kern
+namespace DbAccessExample.Kern
 {
     public class DossierEditor : IDossierEditor
     {
-        private readonly IDossierRepo<Dossier> _dossierRepo;
+        private readonly IDossierRepo _dossierRepo;
 
-        public DossierEditor(IDossierRepo<Dossier> dossierRepo)
+        public DossierEditor(IDossierRepo dossierRepo)
         {
             _dossierRepo = dossierRepo;
         }
 
         public IDossier LoadDossier(int id)
         {
-            return _dossierRepo.LoadDossier(id);
+            return _dossierRepo.FindById(id);
         }
 
         public IEnumerable<Dossier> Search(string searchTerm)

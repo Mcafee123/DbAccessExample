@@ -1,7 +1,6 @@
-﻿using Ninject;
+﻿using DbAccessExample.Kern.Interfaces;
+using Ninject;
 using RepositoryExample.Daten;
-using RepositoryExample.Kern;
-using RepositoryExample.Kern.Interfaces;
 using Util;
 
 namespace DbAccessExample
@@ -12,7 +11,6 @@ namespace DbAccessExample
         {
             Kernel.Load(new UtilNinjectModule());
             Kernel.Load(new RepositoryDatenNinjectModule());
-            Kernel.Load(new RepositoryKernNinjectModule());
         }
 
         public IDossierEditor GetDossierEditor()
