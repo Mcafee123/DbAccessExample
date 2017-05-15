@@ -1,81 +1,63 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Linq;
 using Dapper;
 using Dto;
-using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Services
 {
     public class PersistenceService<T> : IPersistenceService<T> where T : IDto
     {
         private const string GetIdentity = "select cast(scope_identity() as int)";
-        private readonly ISessionFactory _sessionFactory;
 
-        public PersistenceService(ISessionFactory sessionFactory)
+        public T Insert(T item, IDbConnection connection, IDbTransaction transaction = null)
         {
-            _sessionFactory = sessionFactory;
+            var id = connection.Query<int>(GetInsertCommand(item), item, transaction).Single();
+            item.Id = id;
+            return item;
         }
 
-        public T Insert(T item)
+        public T Select(int id, IDbConnection connection, IDbTransaction transaction = null)
         {
-            using (var session = _sessionFactory.CreateSqlSession())
-            {
-                var id = session.Connection.Query<int>(GetInsertCommand(item), item).Single();
-                item.Id = id;
-                return item;
-            }
+            var tableName = GetTableName();
+            var dto =
+                connection.Query<T>($"select * from {tableName} where Id=@id", new {id}, transaction).SingleOrDefault();
+            return dto;
         }
 
-        public T Update(T item)
+        public IEnumerable<T> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            using (var session = _sessionFactory.CreateSqlSession())
-            {
-                session.Connection.Execute(item.GetUpdateCommand(), item);
-                return item;
-            }
+            var tableName = GetTableName();
+            var dtos =
+                connection.Query<T>($"select top(500) * from {tableName}", null, transaction);
+            return dtos;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, IDbConnection connection, IDbTransaction transaction = null)
         {
-            using (var session = _sessionFactory.CreateSqlSession())
-            {
-                var tableName = GetTableName();
-                var existing =
-                    session.Connection.Query<int>(
-                            $"select Id from {tableName} where Id=@id; delete from {tableName} where Id=@id", new {id})
-                        .SingleOrDefault();
-                return existing > 0;
-            }
+            var tableName = GetTableName();
+            var existing =
+                connection.Query<int>(
+                        $"select Id from {tableName} where Id=@id; delete from {tableName} where Id=@id", new {id},
+                        transaction)
+                    .SingleOrDefault();
+            return existing > 0;
         }
 
-        public T Select(int id)
+        public T Update(T item, IDbConnection connection, IDbTransaction transaction = null)
         {
-            using (var session = _sessionFactory.CreateSqlSession())
-            {
-                var tableName = GetTableName();
-                var dto =
-                    session.Connection.Query<T>($"select * from {tableName} where Id=@id", new {id}).SingleOrDefault();
-                return dto;
-            }
-        }
-
-        public IEnumerable<T> Select()
-        {
-            using (var session = _sessionFactory.CreateSqlSession())
-            {
-                var tableName = GetTableName();
-                var dtos =
-                    session.Connection.Query<T>($"select top(500) * from {tableName}");
-                return dtos;
-            }
+            connection.Execute(item.GetUpdateCommand(), item, transaction);
+            return item;
         }
 
         protected string GetInsertCommand(T item, bool returnIdentity = true)
         {
             var itemInsert = item.GetInsertCommand();
             if (returnIdentity)
+            {
                 itemInsert = $"{itemInsert};{GetIdentity}";
+            }
             return itemInsert;
         }
 

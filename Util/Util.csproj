@@ -61,15 +61,17 @@
   <ItemGroup>
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Interfaces\IConfigReader.cs" />
-    <Compile Include="Interfaces\ISessionFactory.cs" />
+    <Compile Include="Interfaces\ISqlSessionFactory.cs" />
     <Compile Include="Interfaces\ISqlSession.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\ISqlSessionHandler.cs" />
+    <Compile Include="Interfaces\ISqlTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\database.sql">
       <SubType>Designer</SubType>
     </Content>
     <Compile Include="SqlSession.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="SqlSessionHandler.cs" />
+    <Compile Include="SqlTransaction.cs" />
     <Compile Include="UtilNinjectModule.cs" />
     <Content Include="Scripts\tables.sql" />
   </ItemGroup>

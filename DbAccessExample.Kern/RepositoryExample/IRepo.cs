@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Util.Interfaces;
 
 namespace DbAccessExample.Kern.RepositoryExample
 {
@@ -10,5 +11,6 @@ namespace DbAccessExample.Kern.RepositoryExample
         T Update(T item);
         T GetById(int id);
         IEnumerable<T> GetAll();
+        ISqlSession CreateSqlSession();
     }
 }

@@ -9,7 +9,8 @@ namespace Util
         public override void Load()
         {
             Bind<IConfigReader>().To<ConfigReader>();
-            Bind<ISessionFactory>().ToFactory();
+            Bind<ISqlSessionHandler>().To<SqlSessionHandler>();
+            Bind<ISqlSessionFactory>().ToFactory();
             Bind<ISqlSession>().To<SqlSession>();
         }
     }

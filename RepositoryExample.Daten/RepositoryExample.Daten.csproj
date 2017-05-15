@@ -62,8 +62,9 @@
   <ItemGroup>
     <Compile Include="RepositoryDatenNinjectModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repos\DossierAblageortRepo.cs" />
-    <Compile Include="Repos\DossierRepo.cs" />
+    <Compile Include="Repos\dbo\DossierAblageortRepo.cs" />
+    <Compile Include="Repos\CockpitSB\DossierRepo.cs" />
+    <Compile Include="Repos\Navision\BenutzerRepo.cs" />
     <Compile Include="Repos\Repo.cs" />
     <Compile Include="Services\DossierService.cs" />
     <Compile Include="Services\IDossierService.cs" />
@@ -87,6 +88,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repos\Param\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,5 +25,10 @@ namespace DbAccessExample.Kern
             // build query...
             return _dossierRepo.Search(searchTerm);
         }
+
+        public Dossier Create(Dossier dossier)
+        {
+            return _dossierRepo.Add(dossier);
+        }
     }
 }

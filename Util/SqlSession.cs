@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using Util.Interfaces;
 
@@ -6,21 +7,58 @@ namespace Util
 {
     public sealed class SqlSession : ISqlSession
     {
+        private bool _disposed;
+
         public SqlSession(IConfigReader rd)
         {
             Connection = new SqlConnection(rd.GetConnectionString());
             Connection.Open();
-            UnitOfWork = new UnitOfWork(Connection);
         }
 
-        public IDbConnection Connection { get; }
+        public bool HasTransaction => SqlTransaction?.Transaction != null;
 
-        public IUnitOfWork UnitOfWork { get; }
+        public IDbConnection Connection { get; private set; }
+
+        public ISqlTransaction SqlTransaction { get; private set; }
+
+        public void Begin()
+        {
+            SqlTransaction = new SqlTransaction(Connection);
+            SqlTransaction.Begin();
+        }
 
         public void Dispose()
         {
-            UnitOfWork.Dispose();
-            Connection.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void Commit()
+        {
+            SqlTransaction.Commit();
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Transaction Dispose (wenn noch da...)
+                    SqlTransaction?.Transaction?.Dispose();
+                    SqlTransaction = null;
+
+                    // Connection Dispose
+                    Connection?.Dispose();
+                    Connection = null;
+                }
+                _disposed = true;
+            }
+        }
+
+        ~SqlSession()
+        {
+            Dispose(false);
         }
     }
 }

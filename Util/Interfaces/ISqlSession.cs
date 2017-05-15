@@ -5,7 +5,10 @@ namespace Util.Interfaces
 {
     public interface ISqlSession : IDisposable
     {
-        IUnitOfWork UnitOfWork { get; }
         IDbConnection Connection { get; }
+        bool HasTransaction { get; }
+        ISqlTransaction SqlTransaction { get; }
+        void Begin();
+        void Commit();
     }
 }

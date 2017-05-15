@@ -1,6 +1,6 @@
 ﻿namespace Util.Interfaces
 {
-    public interface ISessionFactory
+    public interface ISqlSessionFactory
     {
         ISqlSession CreateSqlSession();
     }

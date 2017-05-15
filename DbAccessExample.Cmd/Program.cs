@@ -13,6 +13,8 @@ namespace DbAccessExample
                 //var dossier = dossierEditor.LoadDossier(12);
 
                 impl.AddInitialData();
+                impl.TestException();
+                impl.TestRollback();
             }
             catch (Exception ex)
             {
