@@ -1,6 +1,6 @@
 ﻿namespace DbAccessExample.Kern.Domain
 {
-    public class DossierAblageort: EntityBase
+    public class DossierAblageort : EntityBase
     {
         public int Typ { get; set; }
         public string TextDe { get; set; }

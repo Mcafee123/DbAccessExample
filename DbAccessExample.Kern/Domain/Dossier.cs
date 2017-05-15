@@ -1,8 +1,6 @@
-﻿using DbAccessExample.Kern.Interfaces.Domain;
-
-namespace DbAccessExample.Kern.Domain
+﻿namespace DbAccessExample.Kern.Domain
 {
-    public class Dossier : IDossier
+    public class Dossier : EntityBase
     {
     }
 }

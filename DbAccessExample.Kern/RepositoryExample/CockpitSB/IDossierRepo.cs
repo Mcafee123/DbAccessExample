@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
 
-namespace DbAccessExample.Kern.RepositoryExample
+namespace DbAccessExample.Kern.RepositoryExample.CockpitSB
 {
     public interface IDossierRepo : IRepo<Dossier>
     {

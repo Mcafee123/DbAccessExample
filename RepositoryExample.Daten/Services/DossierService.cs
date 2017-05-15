@@ -1,15 +1,13 @@
-﻿using System.Linq;
-using Dapper;
-using Dto;
+﻿using Dto;
 using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Services
 {
-    public class DossierService : IDossierService
+    public class DossierService : PersistenceService<CockpitSB_Dossier>, IDossierService
     {
         private readonly ISessionFactory _sessionFactory;
 
-        public DossierService(ISessionFactory sessionFactory)
+        public DossierService(ISessionFactory sessionFactory) : base(sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
@@ -31,7 +29,6 @@ namespace RepositoryExample.Daten.Services
                     //var dossier = multi.Read<CockpitSB_Dossier>().Single();
                     //var orders = multi.Read<CockpitSB_DossierVerlauf>().ToList();
                     //var dossier = unitOfWork.Connection.Query<CockpitSB_Dossier>("select * from CockpitSB.Dossier", null, unitOfWork.Transaction).SingleOrDefault();
-
 
 
                     unitOfWork.Commit();

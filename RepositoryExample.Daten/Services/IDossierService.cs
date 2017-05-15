@@ -2,8 +2,7 @@
 
 namespace RepositoryExample.Daten.Services
 {
-    public interface IDossierService
+    public interface IDossierService : IPersistenceService<CockpitSB_Dossier>
     {
-        CockpitSB_Dossier LoadDossier(int id);
     }
 }

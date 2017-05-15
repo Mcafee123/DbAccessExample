@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.Interfaces.Domain;
-using DbAccessExample.Kern.RepositoryExample;
+using DbAccessExample.Kern.RepositoryExample.CockpitSB;
 
 namespace DbAccessExample.Kern
 {
@@ -15,7 +14,7 @@ namespace DbAccessExample.Kern
             _dossierRepo = dossierRepo;
         }
 
-        public IDossier LoadDossier(int id)
+        public Dossier LoadDossier(int id)
         {
             return _dossierRepo.GetById(id);
         }

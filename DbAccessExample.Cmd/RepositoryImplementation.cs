@@ -1,6 +1,6 @@
 ﻿using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.RepositoryExample;
+using DbAccessExample.Kern.RepositoryExample.dbo;
 using Ninject;
 using RepositoryExample.Daten;
 using Util;
@@ -37,7 +37,7 @@ namespace DbAccessExample
                 TextEn = "Beim Kühlschrank EN",
                 Typ = 1 // enum nicht in DB definiert?
             };
-            
+
             var kuehlschrank = ablageOrtRepo.Add(dossierAblageort);
 
             // update

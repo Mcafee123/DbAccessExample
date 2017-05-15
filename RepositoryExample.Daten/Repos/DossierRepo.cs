@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.RepositoryExample;
+using DbAccessExample.Kern.RepositoryExample.CockpitSB;
+using Dto;
 using RepositoryExample.Daten.Services;
+using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Repos
 {
-    public class DossierRepo : IDossierRepo
+    public class DossierRepo : Repo<Dossier, CockpitSB_Dossier>, IDossierRepo
     {
         private readonly IDossierFactory _dossierFactory;
-        private readonly IDossierService _dossierService;
 
-        public DossierRepo(IDossierService dossierService, IDossierFactory dossierFactory)
+        public DossierRepo(ISessionFactory sessionFactory, IDossierService dossierService,
+            IDossierFactory dossierFactory) : base(sessionFactory, dossierService)
         {
-            _dossierService = dossierService;
             _dossierFactory = dossierFactory;
         }
 
@@ -24,38 +24,12 @@ namespace RepositoryExample.Daten.Repos
             return new List<Dossier>();
         }
 
-        public Dossier Add(Dossier item)
+        protected override Dossier Map(CockpitSB_Dossier dto)
         {
             throw new NotImplementedException();
         }
 
-        public bool Remove(Dossier item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Dossier Update(Dossier item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Dossier GetById(int id)
-        {
-            var dto = _dossierService.LoadDossier(id);
-            return _dossierFactory.CreateDossier();
-        }
-
-        public IEnumerable<Dossier> Find(Expression<Func<Dossier, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Dossier> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(int id)
+        protected override CockpitSB_Dossier Map(Dossier entity)
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,5 @@
 ﻿using DbAccessExample.Kern.Domain;
-using DbAccessExample.Kern.RepositoryExample;
+using DbAccessExample.Kern.RepositoryExample.dbo;
 using Dto;
 using RepositoryExample.Daten.Services;
 using Util.Interfaces;
@@ -8,7 +8,8 @@ namespace RepositoryExample.Daten.Repos
 {
     public class DossierAblageortRepo : Repo<DossierAblageort, dbo_DossierAblageort>, IDossierAblageortRepo
     {
-        public DossierAblageortRepo(ISessionFactory sessionFactory, IPersistenceService<dbo_DossierAblageort> persistenceService) : base(sessionFactory, persistenceService)
+        public DossierAblageortRepo(ISessionFactory sessionFactory,
+            IPersistenceService<dbo_DossierAblageort> persistenceService) : base(sessionFactory, persistenceService)
         {
         }
 

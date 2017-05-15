@@ -1,9 +1,9 @@
-﻿using DbAccessExample.Kern.Interfaces.Domain;
+﻿using DbAccessExample.Kern.Domain;
 
 namespace DbAccessExample.Kern.Interfaces
 {
     public interface IDossierEditor
     {
-        IDossier LoadDossier(int id);
+        Dossier LoadDossier(int id);
     }
 }

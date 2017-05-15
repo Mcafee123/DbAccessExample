@@ -1,5 +1,6 @@
 ﻿using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.RepositoryExample;
+using DbAccessExample.Kern.RepositoryExample.CockpitSB;
+using DbAccessExample.Kern.RepositoryExample.dbo;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using RepositoryExample.Daten.Repos;

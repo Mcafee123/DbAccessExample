@@ -47,13 +47,12 @@
     <Compile Include="Domain\DossierAblageort.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="DossierEditor.cs" />
-    <Compile Include="Interfaces\Domain\IDossier.cs" />
     <Compile Include="Interfaces\IDossierEditor.cs" />
     <Compile Include="Interfaces\IDossierFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbAccessExampleKernNinjectModule.cs" />
-    <Compile Include="RepositoryExample\IDossierAblageortRepo.cs" />
-    <Compile Include="RepositoryExample\IDossierRepo.cs" />
+    <Compile Include="RepositoryExample\dbo\IDossierAblageortRepo.cs" />
+    <Compile Include="RepositoryExample\CockpitSB\IDossierRepo.cs" />
     <Compile Include="RepositoryExample\IRepo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CommandQueryExample\" />
+    <Folder Include="RepositoryExample\Navision\" />
+    <Folder Include="RepositoryExample\Param\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
