@@ -1,42 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using DbAccessExample.Kern.Domain;
+﻿using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.RepositoryExample;
 using Dto;
+using RepositoryExample.Daten.Services;
+using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Repos
 {
-    public class DossierAblageortRepo : IDossierAblageortRepo
+    public class DossierAblageortRepo : Repo<DossierAblageort, dbo_DossierAblageort>, IDossierAblageortRepo
     {
-        public void Add(DossierAblageort item)
+        public DossierAblageortRepo(ISessionFactory sessionFactory, IPersistenceService<dbo_DossierAblageort> persistenceService) : base(sessionFactory, persistenceService)
         {
-            throw new NotImplementedException();
         }
 
-        public void Remove(DossierAblageort item)
+        protected override dbo_DossierAblageort Map(DossierAblageort entity)
         {
-            throw new NotImplementedException();
+            var dto = new dbo_DossierAblageort
+            {
+                Id = entity.Id,
+                Typ = entity.Typ,
+                TextDE = entity.TextDe,
+                TextFR = entity.TextFr,
+                TextIT = entity.TextIt,
+                TextEN = entity.TextEn
+            };
+            return dto;
         }
 
-        public void Update(DossierAblageort item)
+        protected override DossierAblageort Map(dbo_DossierAblageort dto)
         {
-            throw new NotImplementedException();
-        }
-
-        public DossierAblageort FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DossierAblageort> Find(Expression<Func<DossierAblageort, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DossierAblageort> FindAll()
-        {
-            throw new NotImplementedException();
+            var entity = new DossierAblageort
+            {
+                Id = dto.Id,
+                Typ = dto.Typ,
+                TextDe = dto.TextDE,
+                TextFr = dto.TextFR,
+                TextIt = dto.TextIT,
+                TextEn = dto.TextEN
+            };
+            return entity;
         }
     }
 }

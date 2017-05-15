@@ -24,22 +24,22 @@ namespace RepositoryExample.Daten.Repos
             return new List<Dossier>();
         }
 
-        public void Add(Dossier item)
+        public Dossier Add(Dossier item)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Dossier item)
+        public bool Remove(Dossier item)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Dossier item)
+        public Dossier Update(Dossier item)
         {
             throw new NotImplementedException();
         }
 
-        public Dossier FindById(int id)
+        public Dossier GetById(int id)
         {
             var dto = _dossierService.LoadDossier(id);
             return _dossierFactory.CreateDossier();
@@ -50,7 +50,12 @@ namespace RepositoryExample.Daten.Repos
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Dossier> FindAll()
+        public IEnumerable<Dossier> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(int id)
         {
             throw new NotImplementedException();
         }

@@ -49,6 +49,8 @@ It is based on the T4 template from the PetaPoco project which in turn is based 
 	tables["tablename"]["columnname"].PropertyName="newname";	// To change the property name of a column
 	tables["tablename"]["columnname"].PropertyType="bool";		// To change the property type of a column
 */
+    tables["dbo_sysdiagrams"].Ignore = true;
+    tables["dbo_SchemaVersions"].Ignore = true;
 #>
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -66,18 +68,24 @@ foreach(Table tbl in from t in tables where !t.Ignore select t){
     /// A class which represents the <#=tbl.Name#> <#=(tbl.IsView)?"view":"table"#>.
     /// </summary>
 	[Table("<#=tbl.Schema#>.<#=tbl.Name#>")]
-	public class <#=tbl.FullName#>
+	public class <#=tbl.FullName#> :IDto
 	{
+    <# var props = new List<string>(); 
+    var updates = new List<string>(); #>
 <#foreach(Column col in from c in tbl.Columns where !c.Ignore select c)
 {#>
 	<# if (tbl.IsPrimaryKeyColumn(col.PropertyName)) { #>
 	[Key]
-	<#}#>
+	<#} else {
+        props.Add(col.Name);
+        updates.Add(string.Format("{0}=@{0}", col.Name));
+    } #>
 	public <#=col.PropertyType #><#=CheckNullable(col)#> <#=col.PropertyName #> { get; set; }
 <#}#>
 <# if (IncludeRelationships) { #>
 <#foreach(Key key in from k in tbl.OuterKeys select k)
 {#>
+        // <#=key.Name #>
 		public <#=tables[key.ReferencedTableName].FullName #> <# if (tables[key.ReferencedTableName].ClassName==tbl.ClassName) { #>FK_<#}#><#=key.PropertyName #> { get; set; }
 <#}#>
 <#foreach(Key key in from k in tbl.InnerKeys select k)
@@ -85,9 +93,23 @@ foreach(Table tbl in from t in tables where !t.Ignore select t){
         // <#=key.Name #>
 		public IEnumerable<<#=tables[key.ReferencingTableName].FullName #>> <#=key.PropertyName #> { get; set; }
 <#}#>
+        public string GetInsertCommand() {
+        <# if (tbl.IsView) { #>
+            throw new InvalidOperationException("no inserts on views");
+        <# } else { #>
+    return "insert into <#=tbl.Name #> (<#=string.Join(", ", props) #>) values (@<#=string.Join(", @", props) #>)";
+<# } #>
+        }
+
+        public string GetUpdateCommand() {
+        <# if (tbl.IsView) { #>
+            throw new InvalidOperationException("no updates on views");
+        <# } else { #>
+    return "update <#=tbl.Name #> set <#=string.Join(", ", updates) #> where Id=@Id";
+<# } #>
+        }
 <#}#>
 	}
-
 <#}#>
 }
 <#+

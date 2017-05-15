@@ -17,7 +17,7 @@ namespace DbAccessExample.Kern
 
         public IDossier LoadDossier(int id)
         {
-            return _dossierRepo.FindById(id);
+            return _dossierRepo.GetById(id);
         }
 
         public IEnumerable<Dossier> Search(string searchTerm)

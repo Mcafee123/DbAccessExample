@@ -14,6 +14,8 @@ namespace RepositoryExample.Daten
             Bind<IDossierRepo>().To<DossierRepo>();
             Bind<IDossierService>().To<DossierService>();
             Bind<IDossierFactory>().ToFactory();
+            Bind<IDossierAblageortRepo>().To<DossierAblageortRepo>();
+            Bind(typeof(IPersistenceService<>)).To(typeof(PersistenceService<>));
         }
     }
 }

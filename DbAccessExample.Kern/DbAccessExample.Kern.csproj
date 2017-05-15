@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Domain\Dossier.cs" />
     <Compile Include="Domain\DossierAblageort.cs" />
+    <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="DossierEditor.cs" />
     <Compile Include="Interfaces\Domain\IDossier.cs" />
     <Compile Include="Interfaces\IDossierEditor.cs" />
@@ -60,12 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CommandQueryExample\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dto\Dto.csproj">
-      <Project>{815FE21B-7891-4BD9-BE4A-D628A177FDF4}</Project>
-      <Name>Dto</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

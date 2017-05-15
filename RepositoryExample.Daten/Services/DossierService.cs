@@ -30,7 +30,7 @@ namespace RepositoryExample.Daten.Services
                     //var multi = unitOfWork.Connection.QueryMultiple(sql, new {id = dossierId}, unitOfWork.Transaction);
                     //var dossier = multi.Read<CockpitSB_Dossier>().Single();
                     //var orders = multi.Read<CockpitSB_DossierVerlauf>().ToList();
-                    var dossier = unitOfWork.Connection.Query<CockpitSB_Dossier>("select * from CockpitSB.Dossier", null, unitOfWork.Transaction).SingleOrDefault();
+                    //var dossier = unitOfWork.Connection.Query<CockpitSB_Dossier>("select * from CockpitSB.Dossier", null, unitOfWork.Transaction).SingleOrDefault();
 
 
 

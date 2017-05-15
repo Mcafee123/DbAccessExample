@@ -16,8 +16,6 @@ namespace Util
             _connection = connection;
         }
 
-        IDbConnection IUnitOfWork.Connection => _connection;
-
         IDbTransaction IUnitOfWork.Transaction => _transaction;
 
         Guid IUnitOfWork.Id => _id;

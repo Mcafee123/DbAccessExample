@@ -9,8 +9,10 @@ namespace DbAccessExample
             try
             {
                 var impl = new RepositoryImplementation();
-                var dossierEditor = impl.GetDossierEditor();
-                var dossier = dossierEditor.LoadDossier(12);
+                //var dossierEditor = impl.GetDossierEditor();
+                //var dossier = dossierEditor.LoadDossier(12);
+
+                impl.AddInitialData();
             }
             catch (Exception ex)
             {

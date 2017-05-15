@@ -1,40 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.RepositoryExample;
+using Dto;
+using RepositoryExample.Daten.Services;
+using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Repos
 {
-    public abstract class Repo<T>: IRepo<T>
+    public abstract class Repo<T, TDto> : IRepo<T> where TDto : IDto where T : EntityBase
     {
-        public virtual void Add(T item)
+        private readonly IPersistenceService<TDto> _persistenceService;
+
+        protected Repo(ISessionFactory sessionFactory, IPersistenceService<TDto> persistenceService)
         {
-            throw new NotImplementedException();
+            _persistenceService = persistenceService;
+            SessionFactory = sessionFactory;
         }
 
-        public virtual void Remove(T item)
+        protected ISessionFactory SessionFactory { get; }
+
+        public virtual T Add(T item)
         {
-            throw new NotImplementedException();
+            var dto = Map(item);
+            _persistenceService.Insert(dto);
+            item.Id = dto.Id;
+            return item;
         }
 
-        public virtual void Update(T item)
+        public virtual bool Remove(T item)
         {
-            throw new NotImplementedException();
+            return _persistenceService.Delete(item.Id);
         }
 
-        public virtual T FindById(int id)
+        public virtual T Update(T item)
         {
-            throw new NotImplementedException();
+            var dto = Map(item);
+            _persistenceService.Update(dto);
+            return item;
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual T GetById(int id)
         {
-            throw new NotImplementedException();
+            var dto = _persistenceService.Select(id);
+            return Map(dto);
         }
 
-        public virtual IEnumerable<T> FindAll()
+        public virtual IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            var items = _persistenceService.Select();
+            foreach (var da in items)
+                yield return Map(da);
         }
+
+        public bool Remove(int id)
+        {
+            return _persistenceService.Delete(id);
+        }
+
+        protected abstract T Map(TDto dto);
+        protected abstract TDto Map(T entity);
     }
 }
