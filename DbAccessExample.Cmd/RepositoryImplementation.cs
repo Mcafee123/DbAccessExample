@@ -125,10 +125,39 @@ namespace DbAccessExample
                     kuehlschrank = ablageorte.First();
                 }
 
+                var arzt = new Benutzer
+                {
+                    Adresse1 = "Strasse 69",
+                    FMHId = 12345,
+                    FMHMember = true,
+                    Geschlecht = 1,
+                    Name = "Kandidat",
+                    Vorname = "Titel"
+                };
+                benutzerRepo.Add(arzt);
+
+                var sachbearbeiterin = new Benutzer
+                {
+                    Adresse1 = "Strasse 696",
+                    FMHId = 54321,
+                    FMHMember = false,
+                    Geschlecht = 1,
+                    Name = "Sachbearbeiterin",
+                    Vorname = "SIWF"
+                };
+                benutzerRepo.Add(sachbearbeiterin);
 
                 var dossier = new Dossier
                 {
-                    Ablageort = kuehlschrank
+                    Ablageort = kuehlschrank,
+                    Arzt = arzt,
+                    DossierStatus = 1,
+                    Dringend = false,
+                    ErstelltDatum = DateTime.Now,
+                    ModifiziertBenutzerId = 123,
+                    ModifiziertDatum = DateTime.Now,
+                    Sachbearbeiterin = sachbearbeiterin,
+                    Typ = 1
                 };
                 dossierEditor.Create(dossier);
 

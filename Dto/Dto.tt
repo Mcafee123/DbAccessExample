@@ -97,7 +97,7 @@ foreach(Table tbl in from t in tables where !t.Ignore select t){
         <# if (tbl.IsView) { #>
             throw new InvalidOperationException("no inserts on views");
         <# } else { #>
-    return "insert into <#=tbl.Name #> (<#=string.Join(", ", props) #>) values (@<#=string.Join(", @", props) #>)";
+    return "insert into <#=tbl.Schema #>.<#=tbl.Name #> (<#=string.Join(", ", props) #>) values (@<#=string.Join(", @", props) #>)";
 <# } #>
         }
 
@@ -105,7 +105,7 @@ foreach(Table tbl in from t in tables where !t.Ignore select t){
         <# if (tbl.IsView) { #>
             throw new InvalidOperationException("no updates on views");
         <# } else { #>
-    return "update <#=tbl.Name #> set <#=string.Join(", ", updates) #> where Id=@Id";
+    return "update <#=tbl.Schema #>.<#=tbl.Name #> set <#=string.Join(", ", updates) #> where Id=@Id";
 <# } #>
         }
 <#}#>

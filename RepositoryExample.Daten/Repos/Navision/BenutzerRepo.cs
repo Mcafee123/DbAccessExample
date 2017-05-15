@@ -14,12 +14,32 @@ namespace RepositoryExample.Daten.Repos.Navision
 
         protected override Benutzer Map(Navision_Benutzer dto)
         {
-            throw new NotImplementedException();
+            var entity = new Benutzer
+            {
+                Id = dto.Id,
+                Adresse1 = dto.Adresse1,
+                FMHId = dto.FMHId,
+                FMHMember = dto.FMHMember,
+                Geschlecht = dto.Geschlecht,
+                Name = dto.Name,
+                Vorname = dto.Vorname
+            };
+            return entity;
         }
 
         protected override Navision_Benutzer Map(Benutzer entity)
         {
-            throw new NotImplementedException();
+            var dto = new Navision_Benutzer
+            {
+                Id = entity.Id,
+                Adresse1 = entity.Adresse1,
+                FMHId = entity.FMHId,
+                FMHMember = entity.FMHMember,
+                Geschlecht = entity.Geschlecht,
+                Name = entity.Name,
+                Vorname = entity.Vorname
+            };
+            return dto;
         }
     }
 }

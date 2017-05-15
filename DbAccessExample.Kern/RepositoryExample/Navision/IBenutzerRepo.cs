@@ -1,6 +1,8 @@
-﻿namespace DbAccessExample.Kern.RepositoryExample.Navision
+﻿using DbAccessExample.Kern.Domain;
+
+namespace DbAccessExample.Kern.RepositoryExample.Navision
 {
-    public interface IBenutzerRepo
+    public interface IBenutzerRepo: IRepo<Benutzer>
     {
     }
 }

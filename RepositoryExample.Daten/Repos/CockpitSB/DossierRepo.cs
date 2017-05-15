@@ -36,12 +36,37 @@ namespace RepositoryExample.Daten.Repos.CockpitSB
 
         protected override Dossier Map(CockpitSB_Dossier dto)
         {
-            throw new NotImplementedException();
+            var entity = new Dossier
+            {
+                Id = dto.Id,
+                Ablageort = null,
+                Arzt = null, 
+                DossierStatus = dto.DossierStatus,
+                Dringend = dto.Dringend,
+                ErstelltDatum = dto.ErstelltDatum,
+                ModifiziertBenutzerId = dto.ModifiziertBenutzerId,
+                ModifiziertDatum = dto.ModifiziertDatum,
+                Sachbearbeiterin = null,
+                Typ = dto.Typ
+            };
+            return entity;
         }
 
         protected override CockpitSB_Dossier Map(Dossier entity)
         {
-            var dto = new CockpitSB_Dossier {AblageortId = entity.Ablageort?.Id};
+            var dto = new CockpitSB_Dossier {
+                Id = entity.Id,
+                AblageortId = entity.Ablageort?.Id,
+                ArztBenutzerId = entity.Arzt.Id,
+                BearbeiterBenutzerId=  entity.Sachbearbeiterin.Id,
+                DossierStatus = entity.DossierStatus,
+                Dringend = entity.Dringend,
+                ErstelltDatum = entity.ErstelltDatum,
+                ModifiziertBenutzerId = entity.ModifiziertBenutzerId,
+                ModifiziertDatum = entity.ModifiziertDatum,
+                Typ = entity.Typ
+
+            };
             return dto;
         }
     }
