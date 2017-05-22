@@ -19,6 +19,11 @@ namespace DbAccessExample.Kern.RepositoryExample
             return _dossierRepo.GetById(id);
         }
 
+        public Dossier Create(Dossier dossier)
+        {
+            return _dossierRepo.Add(dossier);
+        }
+
         public IEnumerable<Dossier> Search(string searchTerm)
         {
             // query parser...
@@ -26,9 +31,9 @@ namespace DbAccessExample.Kern.RepositoryExample
             return _dossierRepo.Search(searchTerm);
         }
 
-        public Dossier Create(Dossier dossier)
+        public int DeleteAll()
         {
-            return _dossierRepo.Add(dossier);
+            return _dossierRepo.DeleteAll();
         }
     }
 }

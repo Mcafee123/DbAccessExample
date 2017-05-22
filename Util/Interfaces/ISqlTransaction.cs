@@ -9,5 +9,6 @@ namespace Util.Interfaces
         IDbTransaction Transaction { get; }
         void Begin();
         void Commit();
+        void Rollback();
     }
 }

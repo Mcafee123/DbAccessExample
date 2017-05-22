@@ -23,7 +23,46 @@ namespace Util
         public IDbConnection Connection => _session.Connection;
         public IDbTransaction Transaction => _session.SqlTransaction?.Transaction;
 
-        public TResult Write<TResult>(Func<TResult> writeAction)
+        public TResult RepoQuery<TResult>(Func<TResult> writeAction)
+        {
+            var sessionHandeledOutside = HasSession();
+            if (!sessionHandeledOutside)
+            {
+                _session = CreateSqlSession();
+            }
+            var transactionHandeledOutside = _session.HasTransaction;
+            if (!transactionHandeledOutside)
+            {
+                _session.Begin();
+            }
+            try
+            {
+                var result = writeAction();
+                if (!transactionHandeledOutside)
+                {
+                    _session.Commit();
+                }
+                return result;
+            }
+            catch
+            {
+                if (!transactionHandeledOutside)
+                {
+                    _session.SqlTransaction.Rollback();
+                }
+                throw;
+            }
+            finally
+            {
+                if (!sessionHandeledOutside)
+                {
+                    _session.Dispose();
+                    _session = null;
+                }
+            }
+        }
+
+        public TResult Query<TResult>(IQuery<TResult> query)
         {
             var hasSession = HasSession();
             if (!hasSession)
@@ -35,48 +74,25 @@ namespace Util
             {
                 _session.Begin();
             }
-            TResult result;
             try
             {
-                result = writeAction();
-            }
-            finally
-            {
+                var result = query.Execute(Connection, Transaction);
                 if (!hasTransaction)
                 {
                     _session.Commit();
                 }
-                if (!hasSession)
-                {
-                    _session.Dispose();
-                    _session = null;
-                }
+                return result;
             }
-            return result;
-        }
-
-        public void Write(Action writeAction)
-        {
-            var hasSession = HasSession();
-            if (!hasSession)
-            {
-                _session = CreateSqlSession();
-            }
-            var hasTransaction = _session.HasTransaction;
-            if (!hasTransaction)
-            {
-                _session.Begin();
-            }
-            try
-            {
-                writeAction();
-            }
-            finally
+            catch
             {
                 if (!hasTransaction)
                 {
-                    _session.Commit();
+                    _session.SqlTransaction.Rollback();
                 }
+                throw;
+            }
+            finally
+            {
                 if (!hasSession)
                 {
                     _session.Dispose();
@@ -85,32 +101,14 @@ namespace Util
             }
         }
 
-        public TResult Read<TResult>(Func<TResult> readAction)
+        public int Execute(ICommand command)
         {
-            var hasSession = HasSession();
-            if (!hasSession)
-            {
-                _session = CreateSqlSession();
-            }
-            TResult result;
-            try
-            {
-                result = readAction();
-            }
-            finally
-            {
-                if (!hasSession)
-                {
-                    _session.Dispose();
-                    _session = null;
-                }
-            }
-            return result;
+            return Query(command);
         }
 
         private bool HasSession()
         {
-            return _session != null;
+            return _session != null && _session.Connection != null;
         }
     }
 }

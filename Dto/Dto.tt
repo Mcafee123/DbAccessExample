@@ -1,4 +1,4 @@
-﻿<#@ template hostspecific="True" language="C#" debug="true" #>
+﻿<#@ template hostspecific="True" language="C#" debug="false" #>
 <#@ import namespace="System.Diagnostics" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core.dll" #>

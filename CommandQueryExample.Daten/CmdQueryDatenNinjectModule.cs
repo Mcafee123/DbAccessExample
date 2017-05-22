@@ -9,6 +9,8 @@ namespace CommandQueryExample.Daten
         public override void Load()
         {
             Bind<IAblageortService>().To<AblageortService>();
+            Bind<IBenutzerService>().To<BenutzerService>();
+            Bind<IDossierService>().To<DossierService>();
         }
     }
 }

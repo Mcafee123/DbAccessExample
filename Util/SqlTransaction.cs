@@ -6,8 +6,8 @@ namespace Util
 {
     internal sealed class SqlTransaction : ISqlTransaction
     {
-        private readonly Guid _id;
         private readonly IDbConnection _connection;
+        private readonly Guid _id;
         private bool _disposed;
         private IDbTransaction _transaction;
 
@@ -26,23 +26,13 @@ namespace Util
         public void Begin()
         {
             _transaction = _connection.BeginTransaction();
+            Console.WriteLine("begin transaction");
         }
 
         public void Commit()
         {
-            try
-            {
-                _transaction.Commit();
-            }
-            catch
-            {
-                _transaction.Rollback();
-                throw;
-            }
-            finally
-            {
-                Dispose();
-            }
+            Console.WriteLine("commit transaction");
+            _transaction.Commit();
         }
 
         public void Dispose()
@@ -51,8 +41,15 @@ namespace Util
             GC.SuppressFinalize(this);
         }
 
+        public void Rollback()
+        {
+            Console.WriteLine("rollback transaction");
+            _transaction.Rollback();
+        }
+
         private void Dispose(bool disposing)
         {
+            Console.WriteLine($"dispose transaction ({disposing})");
             if (!_disposed)
             {
                 if (disposing)

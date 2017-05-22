@@ -1,4 +1,5 @@
-﻿using DbAccessExample.Kern.Domain;
+﻿using System;
+using DbAccessExample.Kern.Domain;
 
 namespace DbAccessExample.Kern.Interfaces
 {
@@ -6,5 +7,6 @@ namespace DbAccessExample.Kern.Interfaces
     {
         Dossier LoadDossier(int id);
         Dossier Create(Dossier dossier);
+        int DeleteAll();
     }
 }

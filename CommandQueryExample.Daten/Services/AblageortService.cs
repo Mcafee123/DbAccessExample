@@ -8,7 +8,7 @@ using Util.Interfaces;
 
 namespace CommandQueryExample.Daten.Services
 {
-    public class AblageortService: IAblageortService
+    public class AblageortService : IAblageortService
     {
         private readonly ISqlSessionHandler _sqlSessionHandler;
 
@@ -19,24 +19,49 @@ namespace CommandQueryExample.Daten.Services
 
         public DossierAblageort Save(DossierAblageort dossierAblageort)
         {
-            new SaveAblageortCommand(dossierAblageort).Execute(_sqlSessionHandler);
+            _sqlSessionHandler.Execute(new SaveAblageortCommand(dossierAblageort));
             return dossierAblageort;
         }
 
         public bool Delete(DossierAblageort dossierAblageort)
         {
-            new RemoveAblageortCommand(dossierAblageort.Id).Execute(_sqlSessionHandler);
-            return true;
+            var returned =_sqlSessionHandler.Execute(new RemoveAblageortCommand(dossierAblageort.Id));
+            return returned > 0;
         }
 
         public IEnumerable<DossierAblageort> GetAll()
         {
-            return new GetAblageortQuery().Execute(_sqlSessionHandler);
+            var ablageorte = _sqlSessionHandler.Query(new GetAblageortQuery());
+            foreach (var ablageort in ablageorte)
+            {
+                yield return new DossierAblageort
+                {
+                    Id = ablageort.Id,
+                    Typ = ablageort.Typ,
+                    TextDe = ablageort.TextDE,
+                    TextFr = ablageort.TextFR,
+                    TextIt = ablageort.TextIT,
+                    TextEn = ablageort.TextEN
+                };
+            }
         }
 
         public DossierAblageort GetById(int id)
         {
-            return new GetAblageortQuery(id).Execute(_sqlSessionHandler).SingleOrDefault();
+            var ablageort = _sqlSessionHandler.Query(new GetAblageortQuery(id)).SingleOrDefault();
+            if (ablageort == null)
+            {
+                return null;
+            }
+            return new DossierAblageort
+            {
+                Id = ablageort.Id,
+                Typ = ablageort.Typ,
+                TextDe = ablageort.TextDE,
+                TextFr = ablageort.TextFR,
+                TextIt = ablageort.TextIT,
+                TextEn = ablageort.TextEN
+            };
         }
     }
 }

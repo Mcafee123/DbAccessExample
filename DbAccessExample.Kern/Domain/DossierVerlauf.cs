@@ -1,6 +1,5 @@
 ﻿namespace DbAccessExample.Kern.Domain
 {
-    public class DossierVerlauf: EntityBase
-    {
-    }
+    public class DossierVerlauf : EntityBase
+    {}
 }

@@ -26,11 +26,11 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Read(() => "hallo");
+            sessionHandler.RepoQuery(() => "hallo");
 
             sqlSessionFactory.Received(1).CreateSqlSession();
-            sqlSession.DidNotReceive().Begin();
-            sqlSession.DidNotReceive().Commit();
+            sqlSession.Received(1).Begin();
+            sqlSession.Received(1).Commit();
             sqlSession.Received(1).Dispose();
         }
 
@@ -41,8 +41,11 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Write(() => Console.WriteLine("hallo"));
-
+            sessionHandler.RepoQuery(() =>
+            {
+                Console.WriteLine("hallo");
+                return 0;
+            });
             sqlSessionFactory.Received(1).CreateSqlSession();
             sqlSession.Received(1).Begin();
             sqlSession.Received(1).Commit();
@@ -56,7 +59,7 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Write(() => "hallo");
+            sessionHandler.RepoQuery(() => "hallo");
 
             sqlSessionFactory.Received(1).CreateSqlSession();
             sqlSession.Received(1).Begin();
@@ -78,7 +81,7 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Read(() => "hallo");
+                sessionHandler.RepoQuery(() => "hallo");
 
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();
@@ -101,8 +104,11 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Write(() => Console.WriteLine("hallo"));
-
+                sessionHandler.RepoQuery(() =>
+                {
+                    Console.WriteLine("hallo");
+                    return 0;
+                });
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();
                 sqlSession.DidNotReceive().Commit();
@@ -124,7 +130,7 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Write(() => "hallo");
+                sessionHandler.RepoQuery(() => "hallo");
 
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();

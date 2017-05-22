@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.Interfaces.RepositoryExample.CockpitSB;
 using Dto;
@@ -10,12 +9,13 @@ namespace RepositoryExample.Daten.Repos.CockpitSB
 {
     public class DossierRepo : Repo<Dossier, CockpitSB_Dossier>, IDossierRepo
     {
-        private readonly IDossierService _dossierService;
         private readonly IPersistenceService<dbo_DossierAblageort> _ablageortService;
         private readonly IPersistenceService<Navision_Benutzer> _benutzerService;
+        private readonly IDossierService _dossierService;
 
         public DossierRepo(ISqlSessionHandler sqlSessionHandler, IDossierService dossierService,
-            IPersistenceService<dbo_DossierAblageort> ablageortService, IPersistenceService<Navision_Benutzer> benutzerService)
+            IPersistenceService<dbo_DossierAblageort> ablageortService,
+            IPersistenceService<Navision_Benutzer> benutzerService)
             : base(sqlSessionHandler, dossierService)
         {
             _dossierService = dossierService;
@@ -28,8 +28,6 @@ namespace RepositoryExample.Daten.Repos.CockpitSB
             using (var session = CreateSqlSession())
             {
                 session.Begin();
-
-
             }
             return null;
         }
@@ -40,7 +38,7 @@ namespace RepositoryExample.Daten.Repos.CockpitSB
             {
                 Id = dto.Id,
                 Ablageort = null,
-                Arzt = null, 
+                Arzt = null,
                 DossierStatus = dto.DossierStatus,
                 Dringend = dto.Dringend,
                 ErstelltDatum = dto.ErstelltDatum,
@@ -54,20 +52,25 @@ namespace RepositoryExample.Daten.Repos.CockpitSB
 
         protected override CockpitSB_Dossier Map(Dossier entity)
         {
-            var dto = new CockpitSB_Dossier {
+            var dto = new CockpitSB_Dossier
+            {
                 Id = entity.Id,
                 AblageortId = entity.Ablageort?.Id,
                 ArztBenutzerId = entity.Arzt.Id,
-                BearbeiterBenutzerId=  entity.Sachbearbeiterin.Id,
+                BearbeiterBenutzerId = entity.Sachbearbeiterin.Id,
                 DossierStatus = entity.DossierStatus,
                 Dringend = entity.Dringend,
                 ErstelltDatum = entity.ErstelltDatum,
                 ModifiziertBenutzerId = entity.ModifiziertBenutzerId,
                 ModifiziertDatum = entity.ModifiziertDatum,
                 Typ = entity.Typ
-
             };
             return dto;
+        }
+
+        public int DeleteAll()
+        {
+            return SqlSessionHandler.RepoQuery(() => _dossierService.DeleteAll(SqlSessionHandler.Connection, SqlSessionHandler.Transaction));
         }
     }
 }

@@ -5,12 +5,14 @@ using Util.Interfaces;
 
 namespace Util
 {
-    public sealed class SqlSession : ISqlSession
+    internal sealed class SqlSession : ISqlSession
     {
         private bool _disposed;
 
         public SqlSession(IConfigReader rd)
         {
+            Console.WriteLine("===");
+            Console.WriteLine("create session and open connection");
             Connection = new SqlConnection(rd.GetConnectionString());
             Connection.Open();
         }
@@ -45,12 +47,15 @@ namespace Util
                 if (disposing)
                 {
                     // Transaction Dispose (wenn noch da...)
-                    SqlTransaction?.Transaction?.Dispose();
+                    SqlTransaction?.Dispose();
                     SqlTransaction = null;
 
                     // Connection Dispose
+                    Console.WriteLine("dispose session");
+                    Connection?.Close();
                     Connection?.Dispose();
                     Connection = null;
+                    Console.WriteLine("===");
                 }
                 _disposed = true;
             }

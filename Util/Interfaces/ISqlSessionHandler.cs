@@ -8,8 +8,8 @@ namespace Util.Interfaces
         IDbConnection Connection { get; }
         IDbTransaction Transaction { get; }
         ISqlSession CreateSqlSession();
-        TResult Write<TResult>(Func<TResult> writeAction);
-        void Write(Action writeAction);
-        TResult Read<TResult>(Func<TResult> readAction);
+        TResult RepoQuery<TResult>(Func<TResult> writeAction);
+        int Execute(ICommand command);
+        TResult Query<TResult>(IQuery<TResult> query);
     }
 }

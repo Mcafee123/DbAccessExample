@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
+using DbAccessExample.Kern.Interfaces;
 using DbAccessExample.Kern.Interfaces.CommandQueryExample;
 
 namespace DbAccessExample.Kern.CommandQueryExample
 {
-    public class AblageortEditor: IAblageortEditor
+    public class AblageortEditor : IAblageortEditor
     {
         private readonly IAblageortService _ablageortService;
 

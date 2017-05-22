@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
+using DbAccessExample.Kern.Interfaces;
 using DbAccessExample.Kern.Interfaces.CommandQueryExample;
 using DbAccessExample.Kern.Interfaces.RepositoryExample.dbo;
 
 namespace DbAccessExample.Kern.RepositoryExample
 {
-    public class AblageortEditor: IAblageortEditor
+    public class AblageortEditor : IAblageortEditor
     {
         private readonly IDossierAblageortRepo _ablageortRepo;
+
         public AblageortEditor(IDossierAblageortRepo ablageortRepo)
         {
             _ablageortRepo = ablageortRepo;
@@ -28,11 +30,6 @@ namespace DbAccessExample.Kern.RepositoryExample
             return Remove(dossierAblageort.Id);
         }
 
-        public bool Remove(int id)
-        {
-            return _ablageortRepo.Remove(id);
-        }
-
         public IEnumerable<DossierAblageort> GetAll()
         {
             return _ablageortRepo.GetAll();
@@ -41,6 +38,11 @@ namespace DbAccessExample.Kern.RepositoryExample
         public DossierAblageort GetById(int id)
         {
             return _ablageortRepo.GetById(id);
+        }
+
+        public bool Remove(int id)
+        {
+            return _ablageortRepo.Remove(id);
         }
     }
 }

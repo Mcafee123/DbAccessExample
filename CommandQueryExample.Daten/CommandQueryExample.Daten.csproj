@@ -48,14 +48,19 @@
   <ItemGroup>
     <Compile Include="CmdQueryDatenNinjectModule.cs" />
     <Compile Include="Commands\RemoveAblageortCommand.cs" />
+    <Compile Include="Commands\RemoveBenutzerCommand.cs" />
+    <Compile Include="Commands\RemoveDossierCommand.cs" />
     <Compile Include="Commands\SaveAblageortCommand.cs" />
-    <Compile Include="Interfaces\ICommand.cs" />
-    <Compile Include="Interfaces\IQuery.cs" />
+    <Compile Include="Commands\SaveBenutzerCommand.cs" />
+    <Compile Include="Commands\SaveDossierCommand.cs" />
     <Compile Include="Interfaces\Queries\ILoadDossierQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetAblageortQuery.cs" />
+    <Compile Include="Queries\GetBenutzerQuery.cs" />
     <Compile Include="Queries\GetDossierQuery.cs" />
     <Compile Include="Services\AblageortService.cs" />
+    <Compile Include="Services\BenutzerService.cs" />
+    <Compile Include="Services\DossierService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,10 +8,25 @@ using Util.Interfaces;
 
 namespace RepositoryExample.Daten.Repos.Navision
 {
-    public class BenutzerRepo: Repo<Benutzer, Navision_Benutzer>, IBenutzerRepo
+    public class BenutzerRepo : Repo<Benutzer, Navision_Benutzer>, IBenutzerRepo
     {
-        public BenutzerRepo(ISqlSessionHandler sqlSessionHandler, IPersistenceService<Navision_Benutzer> persistenceService) : base(sqlSessionHandler, persistenceService)
+        public BenutzerRepo(ISqlSessionHandler sqlSessionHandler,
+            IPersistenceService<Navision_Benutzer> persistenceService) : base(sqlSessionHandler, persistenceService)
         {}
+
+        public Benutzer GetByFmhId(int fmhId)
+        {
+            var dto = SqlSessionHandler.RepoQuery(() =>
+            {
+                var tableName = PersistenceService.GetTableName();
+                var benutzer =
+                    SqlSessionHandler.Connection.Query<Navision_Benutzer>(
+                            $"select * from {tableName} where FmhId=@fmhId", new {fmhId}, SqlSessionHandler.Transaction)
+                        .SingleOrDefault();
+                return benutzer;
+            });
+            return dto == null ? null : Map(dto);
+        }
 
         protected override Benutzer Map(Navision_Benutzer dto)
         {
@@ -41,18 +56,6 @@ namespace RepositoryExample.Daten.Repos.Navision
                 Vorname = entity.Vorname
             };
             return dto;
-        }
-
-        public Benutzer GetByFmhId(int fmhId)
-        {
-            var dto = SqlSessionHandler.Read(() =>
-            {
-                var tableName = PersistenceService.GetTableName();
-                var benutzer =
-                    SqlSessionHandler.Connection.Query<Navision_Benutzer>($"select * from {tableName} where FmhId=@fmhId", new { fmhId }, SqlSessionHandler.Transaction).SingleOrDefault();
-                return benutzer;
-            });
-            return dto == null ? null : Map(dto);
         }
     }
 }

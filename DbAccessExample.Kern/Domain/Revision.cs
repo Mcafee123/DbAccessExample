@@ -1,6 +1,5 @@
 ﻿namespace DbAccessExample.Kern.Domain
 {
-    public class Revision: EntityBase
-    {
-    }
+    public class Revision : EntityBase
+    {}
 }

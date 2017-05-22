@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
 
-namespace DbAccessExample.Kern.Interfaces.CommandQueryExample
+namespace DbAccessExample.Kern.Interfaces
 {
     public interface IAblageortEditor
     {

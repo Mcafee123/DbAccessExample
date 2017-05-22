@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using CommandQueryExample.Daten.Interfaces;
+﻿using System.Data;
+using System.Linq;
 using Dapper;
 using DbAccessExample.Kern.Domain;
 using Dto;
-using Util.Interfaces;
+using Util;
 
 namespace CommandQueryExample.Daten.Commands
 {
@@ -16,40 +16,38 @@ namespace CommandQueryExample.Daten.Commands
 
         public DossierAblageort DossierAblageort { get; }
 
-        public void Execute(ISqlSessionHandler sessionHandler)
+        public int Execute(IDbConnection connection, IDbTransaction transaction)
         {
-            sessionHandler.Write(() =>
+            if (DossierAblageort.Id < 1)
             {
-                if (DossierAblageort.Id < 1)
+                var insertCmd = $"{dbo_DossierAblageort.CMD_INSERT};select cast(scope_identity() as int)";
+                var id =
+                    connection.Query<int>(
+                        insertCmd,
+                        new
+                        {
+                            DossierAblageort.Typ,
+                            DossierAblageort.TextDe,
+                            DossierAblageort.TextFr,
+                            DossierAblageort.TextIt,
+                            DossierAblageort.TextEn
+                        }, transaction).Single();
+                DossierAblageort.Id = id;
+            }
+            else
+            {
+                var updateCmd = dbo_DossierAblageort.CMD_UPDATE;
+                connection.Execute(updateCmd, new
                 {
-                    var insertCmd = $"{dbo_DossierAblageort.CMD_INSERT};select cast(scope_identity() as int)";
-                    var id =
-                        sessionHandler.Connection.Query<int>(
-                            insertCmd,
-                            new
-                            {
-                                DossierAblageort.Typ,
-                                DossierAblageort.TextDe,
-                                DossierAblageort.TextFr,
-                                DossierAblageort.TextIt,
-                                DossierAblageort.TextEn
-                            }, sessionHandler.Transaction).Single();
-                    DossierAblageort.Id = id;
-                }
-                else
-                {
-                    var updateCmd = dbo_DossierAblageort.CMD_UPDATE;
-                    sessionHandler.Connection.Execute(updateCmd, new
-                    {
-                        DossierAblageort.Typ,
-                        DossierAblageort.TextDe,
-                        DossierAblageort.TextFr,
-                        DossierAblageort.TextIt,
-                        DossierAblageort.TextEn,
-                        DossierAblageort.Id
-                    }, sessionHandler.Transaction);
-                }
-            });
+                    DossierAblageort.Typ,
+                    DossierAblageort.TextDe,
+                    DossierAblageort.TextFr,
+                    DossierAblageort.TextIt,
+                    DossierAblageort.TextEn,
+                    DossierAblageort.Id
+                }, transaction);
+            }
+            return DossierAblageort.Id;
         }
     }
 }

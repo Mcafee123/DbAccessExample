@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using CommandQueryExample.Daten.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using DbAccessExample.Kern.Domain;
-using Util.Interfaces;
+using Util;
 
 namespace CommandQueryExample.Daten.Queries
 {
     public class GetDossierQuery : IQuery<IEnumerable<Dossier>>
     {
-        public IEnumerable<Dossier> Execute(ISqlSessionHandler sessionHandler)
+        public IEnumerable<Dossier> Execute(IDbConnection connection, IDbTransaction transaction)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }

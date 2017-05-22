@@ -1,6 +1,4 @@
 ﻿using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.Interfaces.CommandQueryExample;
-using DbAccessExample.Kern.Interfaces.RepositoryExample.dbo;
 using Ninject.Modules;
 
 namespace DbAccessExample.Kern
@@ -20,11 +18,13 @@ namespace DbAccessExample.Kern
             {
                 Bind<IAblageortEditor>().To<RepositoryExample.AblageortEditor>();
                 Bind<IDossierEditor>().To<RepositoryExample.DossierEditor>();
+                Bind<IBenutzerEditor>().To<RepositoryExample.BenutzerEditor>();
             }
             else
             {
                 Bind<IAblageortEditor>().To<CommandQueryExample.AblageortEditor>();
                 Bind<IDossierEditor>().To<CommandQueryExample.DossierEditor>();
+                Bind<IBenutzerEditor>().To<CommandQueryExample.BenutzerEditor>();
             }
         }
     }

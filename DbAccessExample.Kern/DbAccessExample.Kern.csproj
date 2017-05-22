@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandQueryExample\AblageortEditor.cs" />
+    <Compile Include="CommandQueryExample\BenutzerEditor.cs" />
     <Compile Include="CommandQueryExample\DossierEditor.cs" />
     <Compile Include="Domain\Benutzer.cs" />
     <Compile Include="Domain\Dossier.cs" />
@@ -51,18 +52,21 @@
     <Compile Include="Domain\DossierVerlauf.cs" />
     <Compile Include="Domain\EntityBase.cs" />
     <Compile Include="Domain\Revision.cs" />
-    <Compile Include="Interfaces\CommandQueryExample\IAblageortEditor.cs" />
+    <Compile Include="Interfaces\CommandQueryExample\IBenutzerService.cs" />
+    <Compile Include="Interfaces\CommandQueryExample\IDossierService.cs" />
+    <Compile Include="Interfaces\IAblageortEditor.cs" />
     <Compile Include="Interfaces\CommandQueryExample\IAblageortService.cs" />
     <Compile Include="RepositoryExample\AblageortEditor.cs" />
+    <Compile Include="RepositoryExample\BenutzerEditor.cs" />
     <Compile Include="RepositoryExample\DossierEditor.cs" />
     <Compile Include="Interfaces\IDossierEditor.cs" />
-    <Compile Include="Interfaces\IDossierFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbAccessExampleKernNinjectModule.cs" />
     <Compile Include="Interfaces\RepositoryExample\dbo\IDossierAblageortRepo.cs" />
     <Compile Include="Interfaces\RepositoryExample\CockpitSB\IDossierRepo.cs" />
     <Compile Include="Interfaces\RepositoryExample\IRepo.cs" />
     <Compile Include="Interfaces\RepositoryExample\Navision\IBenutzerRepo.cs" />
+    <Compile Include="Interfaces\IBenutzerEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
