@@ -1,7 +1,7 @@
 ﻿using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.RepositoryExample.CockpitSB;
-using DbAccessExample.Kern.RepositoryExample.dbo;
-using DbAccessExample.Kern.RepositoryExample.Navision;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.CockpitSB;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.dbo;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.Navision;
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using RepositoryExample.Daten.Repos.CockpitSB;

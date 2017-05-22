@@ -23,7 +23,7 @@ namespace Util
         public IDbConnection Connection => _session.Connection;
         public IDbTransaction Transaction => _session.SqlTransaction?.Transaction;
 
-        public TResult Write<TResult>(Func<ISqlSessionHandler, TResult> writeAction)
+        public TResult Write<TResult>(Func<TResult> writeAction)
         {
             var hasSession = HasSession();
             if (!hasSession)
@@ -38,7 +38,7 @@ namespace Util
             TResult result;
             try
             {
-                result = writeAction(this);
+                result = writeAction();
             }
             finally
             {
@@ -55,7 +55,7 @@ namespace Util
             return result;
         }
 
-        public void Write(Action<ISqlSessionHandler> writeAction)
+        public void Write(Action writeAction)
         {
             var hasSession = HasSession();
             if (!hasSession)
@@ -69,7 +69,7 @@ namespace Util
             }
             try
             {
-                writeAction(this);
+                writeAction();
             }
             finally
             {
@@ -85,7 +85,7 @@ namespace Util
             }
         }
 
-        public TResult Read<TResult>(Func<ISqlSessionHandler, TResult> readAction)
+        public TResult Read<TResult>(Func<TResult> readAction)
         {
             var hasSession = HasSession();
             if (!hasSession)
@@ -95,7 +95,7 @@ namespace Util
             TResult result;
             try
             {
-                result = readAction(this);
+                result = readAction();
             }
             finally
             {

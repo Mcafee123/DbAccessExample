@@ -1,5 +1,5 @@
 using DbAccessExample.Kern.Domain;
-using DbAccessExample.Kern.RepositoryExample.dbo;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.dbo;
 using Dto;
 using RepositoryExample.Daten.Services;
 using Util.Interfaces;

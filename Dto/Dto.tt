@@ -1,4 +1,5 @@
-﻿<#@ template hostspecific="True" language="C#" #>
+﻿<#@ template hostspecific="True" language="C#" debug="true" #>
+<#@ import namespace="System.Diagnostics" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core.dll" #>
 <#@ assembly name="System.Data" #>
@@ -39,6 +40,7 @@ It is based on the T4 template from the PetaPoco project which in turn is based 
     ExcludeTablePrefixes = new string[]{"aspnet_","webpages_"};
 
     // Read schema
+    // Debugger.Launch();
     var tables = LoadTables();
 
 /*
@@ -93,19 +95,29 @@ foreach(Table tbl in from t in tables where !t.Ignore select t){
         // <#=key.Name #>
         public IEnumerable<<#=tables[key.ReferencingTableName].FullName #>> <#=key.PropertyName #> { get; set; }
 <#}#>
+
+        public const string TABLE_NAME = "<#=tbl.Schema #>.<#=tbl.Name #>";
+
+        /// <summary>
+        /// Parameters: @<#=string.Join(", @", props) #>
+        /// </summary>
+        public const string CMD_INSERT = "insert into <#=tbl.Schema #>.<#=tbl.Name #> (<#=string.Join(", ", props) #>) values (@<#=string.Join(", @", props) #>)";
         public string GetInsertCommand() {
         <# if (tbl.IsView) { #>
             throw new InvalidOperationException("no inserts on views");
         <# } else { #>
-    return "insert into <#=tbl.Schema #>.<#=tbl.Name #> (<#=string.Join(", ", props) #>) values (@<#=string.Join(", @", props) #>)";
+    return CMD_INSERT;
 <# } #>
         }
-
+        /// <summary>
+        /// Parameters: @Id, @<#=string.Join(", @", props) #>
+        /// </summary>
+        public const string CMD_UPDATE = "update <#=tbl.Schema #>.<#=tbl.Name #> set <#=string.Join(", ", updates) #> where Id=@Id";
         public string GetUpdateCommand() {
         <# if (tbl.IsView) { #>
             throw new InvalidOperationException("no updates on views");
         <# } else { #>
-    return "update <#=tbl.Schema #>.<#=tbl.Name #> set <#=string.Join(", ", updates) #> where Id=@Id";
+    return CMD_UPDATE;
 <# } #>
         }
 <#}#>

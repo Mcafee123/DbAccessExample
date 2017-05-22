@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmdQueryImplementation.cs" />
+    <Compile Include="CommandQueryImplementation.cs" />
     <Compile Include="Implementation.cs" />
     <Compile Include="RepositoryImplementation.cs" />
     <Compile Include="Program.cs" />

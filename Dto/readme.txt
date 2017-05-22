@@ -1,1 +1,1 @@
-﻿Falls ein "Index out of bounds"-Fehler auftritt hilft es, das aktrive Projekt auf "Dto" zu setzen."
+﻿Falls ein "Index out of bounds"-Fehler auftritt hilft es, das aktive Projekt auf "Dto" zu setzen."

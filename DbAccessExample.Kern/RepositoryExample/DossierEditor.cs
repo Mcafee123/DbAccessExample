@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
 using DbAccessExample.Kern.Interfaces;
-using DbAccessExample.Kern.RepositoryExample.CockpitSB;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.CockpitSB;
 
-namespace DbAccessExample.Kern
+namespace DbAccessExample.Kern.RepositoryExample
 {
     public class DossierEditor : IDossierEditor
     {

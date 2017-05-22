@@ -26,7 +26,7 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Read(sessHandlr => "hallo");
+            sessionHandler.Read(() => "hallo");
 
             sqlSessionFactory.Received(1).CreateSqlSession();
             sqlSession.DidNotReceive().Begin();
@@ -41,7 +41,7 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Write(sessHandlr => Console.WriteLine("hallo"));
+            sessionHandler.Write(() => Console.WriteLine("hallo"));
 
             sqlSessionFactory.Received(1).CreateSqlSession();
             sqlSession.Received(1).Begin();
@@ -56,7 +56,7 @@ namespace Util.Test
             ISqlSession sqlSession;
             var sessionHandler = GetSessionHandler(false, out sqlSessionFactory, out sqlSession);
 
-            sessionHandler.Write(sessHandlr => "hallo");
+            sessionHandler.Write(() => "hallo");
 
             sqlSessionFactory.Received(1).CreateSqlSession();
             sqlSession.Received(1).Begin();
@@ -78,7 +78,7 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Read(sessHandlr => "hallo");
+                sessionHandler.Read(() => "hallo");
 
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();
@@ -101,7 +101,7 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Write(sessHandlr => Console.WriteLine("hallo"));
+                sessionHandler.Write(() => Console.WriteLine("hallo"));
 
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();
@@ -124,7 +124,7 @@ namespace Util.Test
                 sqlSessionFactory.ClearReceivedCalls();
                 session.ClearReceivedCalls();
 
-                sessionHandler.Write(sessHandlr => "hallo");
+                sessionHandler.Write(() => "hallo");
 
                 sqlSessionFactory.DidNotReceive().CreateSqlSession();
                 sqlSession.DidNotReceive().Begin();

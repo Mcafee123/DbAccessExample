@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DbAccessExample.Kern.Domain;
-using DbAccessExample.Kern.RepositoryExample.CockpitSB;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.CockpitSB;
 using Dto;
 using RepositoryExample.Daten.Services;
 using Util.Interfaces;

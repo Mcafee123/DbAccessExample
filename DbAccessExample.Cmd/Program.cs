@@ -8,13 +8,15 @@ namespace DbAccessExample
         {
             try
             {
-                var impl = new RepositoryImplementation();
-                //var dossierEditor = impl.GetDossierEditor();
-                //var dossier = dossierEditor.LoadDossier(12);
+                //var impl = new RepositoryImplementation();
+                //impl.AddInitialData();
+                //impl.TestException();
+                //impl.TestRollback();
 
+
+
+                var impl = new CommandQueryImplementation();
                 impl.AddInitialData();
-                impl.TestException();
-                impl.TestRollback();
             }
             catch (Exception ex)
             {

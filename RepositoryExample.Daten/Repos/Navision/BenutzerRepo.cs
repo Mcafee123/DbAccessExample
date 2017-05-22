@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Linq;
+using Dapper;
 using DbAccessExample.Kern.Domain;
-using DbAccessExample.Kern.RepositoryExample.Navision;
+using DbAccessExample.Kern.Interfaces.RepositoryExample.Navision;
 using Dto;
 using RepositoryExample.Daten.Services;
 using Util.Interfaces;
@@ -40,6 +41,18 @@ namespace RepositoryExample.Daten.Repos.Navision
                 Vorname = entity.Vorname
             };
             return dto;
+        }
+
+        public Benutzer GetByFmhId(int fmhId)
+        {
+            var dto = SqlSessionHandler.Read(() =>
+            {
+                var tableName = PersistenceService.GetTableName();
+                var benutzer =
+                    SqlSessionHandler.Connection.Query<Navision_Benutzer>($"select * from {tableName} where FmhId=@fmhId", new { fmhId }, SqlSessionHandler.Transaction).SingleOrDefault();
+                return benutzer;
+            });
+            return dto == null ? null : Map(dto);
         }
     }
 }

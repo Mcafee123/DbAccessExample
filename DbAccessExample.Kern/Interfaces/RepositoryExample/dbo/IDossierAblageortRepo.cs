@@ -1,7 +1,6 @@
-﻿using System;
-using DbAccessExample.Kern.Domain;
+﻿using DbAccessExample.Kern.Domain;
 
-namespace DbAccessExample.Kern.RepositoryExample.dbo
+namespace DbAccessExample.Kern.Interfaces.RepositoryExample.dbo
 {
     public interface IDossierAblageortRepo : IRepo<DossierAblageort>
     {

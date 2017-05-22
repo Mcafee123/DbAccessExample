@@ -4,9 +4,9 @@ using Util;
 
 namespace DbAccessExample
 {
-    public class CmdQueryImplementation : Implementation
+    public class CommandQueryImplementation : Implementation
     {
-        public CmdQueryImplementation() : base(new StandardKernel())
+        public CommandQueryImplementation() : base(new StandardKernel(), false)
         {
             Kernel.Load(new UtilNinjectModule());
             Kernel.Load(new CmdQueryDatenNinjectModule());
